@@ -1,4 +1,13 @@
 @extends('layouts.template')
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 @section('content')
   <h1>Edit ToDO {{ $todo->id }}</h1>
   <form class="form-horizontal" action="update" method="post">

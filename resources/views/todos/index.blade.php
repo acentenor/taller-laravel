@@ -1,6 +1,6 @@
 @extends('layouts.template')
 @if(Session::has('message'))
-  <div class="alert alert-success alert-dismissible" role="alert">
+  <div class="alert alert-{{ Session::get('error_color') }} alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     {{ Session::get('message') }}
   </div>
@@ -11,7 +11,7 @@
 <div class="text-right">
   <a href="todos/create">
     <button type="button" name="button" class="btn btn-success">
-      Create New ToDo
+      <i class="glyphicon glyphicon-plus"></i> Create New ToDo
     </button>
   </a>
 </div>
@@ -58,21 +58,14 @@
               {{ $todo->user->name }}
             @endif
           </td>
-          <td>
+          <td class="text-center">
             <a href="todos/{{ $todo->id }}/edit">
-              <div class="alert alert-warning text-center">
-                <i class="glyphicon glyphicon-pencil"></i>
-              </div>
+              <button class="btn btn btn-warning btn-large-active" type="button"><i class="glyphicon glyphicon-pencil"></i></button>
             </a>
           </td>
-          <td>
-            {{-- <form method="POST" action="todos/destroy/{{$todo->id}}" onsubmit="return confirm(&quot;Are you sure?&quot;)">
-              {{ method_field('DELETE') }}
-              {{ csrf_field() }}
-							<input class="btn btn-danger" onclick="return confirmar()" type="submit" value="Delete">
-            </form> --}}
+          <td class="text-center">
             {!! Form::open(['url' => ['todos/destroy',$todo], 'method' => 'delete', 'class' => 'form-delete', 'onsubmit' => 'return confirm("Are you sure?")']) !!}
-              {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-large-active', 'onclick' => 'return confirmar()']) !!}
+              <button class="btn btn btn-danger btn-large-active" type="submit" onclick ='return confirmar()'><i class="glyphicon glyphicon-remove"></i></button>
             {!! Form::close() !!}
           </td>
         </tr>

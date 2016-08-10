@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Todo extends Model
 {
 
-    protected $guarded = ['id','user_id','update_at','created_at'];
+    protected $guarded = ['id','update_at','created_at'];
 
     public function comments()
     {

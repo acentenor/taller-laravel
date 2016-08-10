@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\TodoRequest;
 use App\Http\Controllers\Controller;
 use App\Todo;
 
@@ -38,10 +39,11 @@ class TodosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(TodoRequest $request)
     {
         Todo::create(request()->all());
         //return back()->with('message','ToDo was created successfully');
+        session()->flash('error_color','success');
         session()->flash('message','ToDo was created successfully');
         return back();
     }
@@ -77,9 +79,9 @@ class TodosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Todo $id)
+    public function update(TodoRequest $request, Todo $id)
     {
-      $id->fill(request()->all());
+      $id->fill($request->all());
       $id->save();
       return redirect('/')->with('message','ToDo was edited successfully');
     }
