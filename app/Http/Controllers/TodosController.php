@@ -18,6 +18,7 @@ class TodosController extends Controller
     public function index()
     {
         $todos = Todo::all();
+        $todos->load('user');
         return view('todos.index')->withTodos($todos);
     }
 
@@ -40,7 +41,9 @@ class TodosController extends Controller
     public function store()
     {
         Todo::create(request()->all());
-        return back()->with('message','ToDo was created successfully');
+        //return back()->with('message','ToDo was created successfully');
+        session()->flash('message','ToDo was created successfully');
+        return back();
     }
 
     /**
@@ -51,6 +54,7 @@ class TodosController extends Controller
      */
     public function show(Todo $id)
     {
+        $id->load('user');
         return view('todos.show')->withTodo($id);
 
     }

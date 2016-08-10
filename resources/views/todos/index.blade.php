@@ -5,6 +5,7 @@
     {{ Session::get('message') }}
   </div>
 @endif
+
 @section('content')
 <h1>ToDos</h1>
 <div class="text-right">
@@ -28,6 +29,9 @@
             Status
           </th>
           <th>
+            User
+          </th>
+          <th>
             Edit
           </th>
           <th>
@@ -48,6 +52,11 @@
           </td>
           <td>
             {{ $todo->status }}
+          </td>
+          <td>
+            @if(isset($todo->user))
+              {{ $todo->user->name }}
+            @endif
           </td>
           <td>
             <a href="todos/{{ $todo->id }}/edit">

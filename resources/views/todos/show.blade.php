@@ -6,7 +6,10 @@
       <h2>toDo Data</h2>
       Name: {{ $todo->name }} <br>
       Asigned Color: {{ $todo->color }} <br>
-      Status: {{ $todo->status }}
+      Status: {{ $todo->status }} <br>
+      User: @if(isset($todo->user))
+        {{ $todo->user->name }}
+      @endif
     </p>
     <h2>Comments</h2>
     <a class="btn btn-success" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">

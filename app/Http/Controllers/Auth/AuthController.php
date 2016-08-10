@@ -6,6 +6,7 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Auth;
 
 class AuthController extends Controller
 {
@@ -60,5 +61,13 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function postLogin()
+    {
+        if (Auth::attempt(['email' => request()->email, 'password' => request()->password])) {
+            // Authentication passed...
+            return redirect()->intended('/');
+        }
     }
 }

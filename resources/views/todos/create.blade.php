@@ -10,6 +10,7 @@
   <form class="form-horizontal" action="store" method="post">
     {{ csrf_field() }}
     <fieldset>
+      <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
       <div class="form-group">
         <label for="name">Name: </label>
         <input type="text" name="name" id="name" class="form-control">

@@ -10,5 +10,16 @@
      </button>
      <a class="navbar-brand" href="/">ToDos</a>
    </div>
+   @if(Auth::check())
+
+     <ul class="nav navbar-nav navbar-right">
+       <li class="dropdown">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello {{ Auth::user()->name }} <span class="caret"></span></a>
+         <ul class="dropdown-menu">
+           <li><a href="{{ url('auth/logout') }}">Logout</a></li>
+         </ul>
+       </li>
+     </ul>
+   @endif
   </div>
 </nav>
