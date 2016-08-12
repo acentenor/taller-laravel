@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Requests\TodoRequest;
 use App\Http\Controllers\Controller;
 use App\Todo;
+use App\Project;
+use Gate;
 
 class TodosController extends Controller
 {
@@ -30,7 +32,8 @@ class TodosController extends Controller
      */
     public function create()
     {
-        return view('todos.create');
+      $projects = Project::all();
+        return view('todos.create')->withProjects($projects);
     }
 
     /**
@@ -57,6 +60,9 @@ class TodosController extends Controller
     public function show(Todo $id)
     {
         $id->load('user');
+        //, function($query){
+          //$query->orderBy('created_at','desc');
+        //}]);
         return view('todos.show')->withTodo($id);
 
     }
@@ -100,7 +106,34 @@ class TodosController extends Controller
      } catch(ModelNotFoundException $e){
          return redirect('/')->with('message','Please try again');
      }
+       if(Gate::denies('delete-todo',$todo)){
+         abort(403);
+       }
         $todo->delete();
         return back();
+     }
+
+     public function color($color)
+     {
+       //dd($color);
+       $todos = Todo::color($color)->get();
+       $todos->load('user');
+       return view('todos.index')->withTodos($todos);
+     }
+
+     public function pending()
+     {
+       //dd($color);
+       $todos = Todo::pending()->get();
+       $todos->load('user');
+       return view('todos.index')->withTodos($todos);
+     }
+
+     public function finished()
+     {
+       //dd($color);
+       $todos = Todo::finished()->get();
+       $todos->load('user');
+       return view('todos.index')->withTodos($todos);
      }
 }

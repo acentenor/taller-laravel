@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommentsTable extends Migration
+class AddingTodoId extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,9 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('comment');
+        Schema::table('projects', function (Blueprint $table) {
             $table->integer('todo_id')->unsigned()->index();
-            $table->timestamps();
+            $table->foreign('todo_id')->references('id')->on('todos')->onDelete('cascade');
         });
     }
 
@@ -27,6 +25,8 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('comments');
+        Schema::table('projects', function (Blueprint $table) {
+            //
+        });
     }
 }

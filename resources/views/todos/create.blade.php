@@ -34,6 +34,18 @@
           <option value="pending">Pending</option>
         </select>
       </div>
+      <div class="form-group">
+        <label for="project_id">Projects</label>
+        {!! Form::select('project_id', array_pluck($projects,'name','id'), null, ['class' => 'form-control']); !!}
+      </div>
+      <div class="form-group">
+        <label for="tags">Tag</label>
+        <select class="form-control" name="tag">
+          <option value="tag1">Tag1</option>
+          <option value="tag2">Tag2</option>
+          <option value="tag3">Tag3</option>
+        </select>
+      </div>
       <div class="form-group text-right">
         <input type="submit" value="Create" class="btn btn-default">
       </div>

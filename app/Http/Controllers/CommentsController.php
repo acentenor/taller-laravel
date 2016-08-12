@@ -84,6 +84,7 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id->delete();
+        return back();
     }
 }

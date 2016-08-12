@@ -7,6 +7,12 @@
       Name: {{ $todo->name }} <br>
       Asigned Color: {{ $todo->color }} <br>
       Status: {{ $todo->status }} <br>
+      Projects: @foreach($todo->projects as $project)
+        {{ $project->name }},
+      @endforeach
+      <br>
+
+      <br>
       User: @if(isset($todo->user))
         {{ $todo->user->name }}
       @endif
@@ -38,11 +44,18 @@
       <ul>
         <li>
           {{ $comment->comment }}
+          <br>
           @if(Auth::user()->id == $comment->user_id)
             <a href="comments/{{ $comment->id }}/edit" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">
               <i class="glyphicon glyphicon-pencil"></i>
             </a>
+
+            {!! Form::open(['url' => ['comments/destroy',$comment], 'method' => 'delete', 'class' => 'form-delete', 'onsubmit' => 'return confirm("Are you sure?")']) !!}
+              <button class="glyphicon glyphicon-remove" type="submit" onclick ='return confirmar()'></button>
+            {!! Form::close() !!}
           @endif
+
+
         </li>
       </ul>
 

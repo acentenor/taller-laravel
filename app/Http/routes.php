@@ -29,9 +29,11 @@ Route::group(['middleware' => 'auth'], function(){
               'uses' => 'TodosController@edit']);
   Route::put('todos/{id}/update','TodosController@update');
   Route::delete('todos/destroy/{id}','TodosController@destroy');
-
   Route::get('todos/{id}', 'TodosController@show');
-  Route::model('id','App\Todo');
 
+  Route::get('todos/pending','TodosController@pending');
+  Route::get('todos/finished','TodosController@finished');
+  Route::model('id','App\Todo');
+  Route::get('todos/color/{color}','TodosController@color');
   Route::resource('comments','CommentsController');
 });
